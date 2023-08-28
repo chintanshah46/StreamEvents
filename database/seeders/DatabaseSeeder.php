@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Donation;
+use App\Models\Follower;
+use App\Models\Subscriber;
+use App\Models\Merchandise;
+use App\Models\MerchandiseSale;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,11 +19,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            CurrencySeeder::class,
+            SubscriptionSeeder::class
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Merchandise::factory(50)->create();
+
+        Follower::factory(1000)->create();
+
+        Subscriber::factory(1000)->create();
+
+        Donation::factory(1000)->create();
+
+        MerchandiseSale::factory(1000)->create();
     }
 }
