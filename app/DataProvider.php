@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Auth;
 class DataProvider {
 
     private $auth;
+    private $perPageLimit;
 
     public function __construct(Auth $auth)
     {
+        $this->perPageLimit = 100;
         $this->auth = $auth;
     }
 
@@ -81,15 +83,31 @@ class DataProvider {
 
         $user_id = $this->auth::user()->id;
 
-        $limit = 10;
-        $offset = ($limit * ($page-1) );
+        $offset = ($this->perPageLimit * ($page-1) );
 
         return DB::table('summary_view')
                             ->where('user_id','=',$user_id)
                             ->orderByRaw('`read` ASC, created DESC')
                             ->offset($offset)
-                            ->limit($limit)
+                            ->limit($this->perPageLimit)
                             ->get();
+
+    }
+
+    public function getEventsMaxPages(){
+
+        $user_id = $this->auth::user()->id;
+
+        $count = DB::table('summary_view')
+                            ->where('user_id','=',$user_id)
+                            ->count();
+
+        $maxPage = intdiv($count, $this->perPageLimit);
+
+        if ( $count % $this->perPageLimit > 0 )
+            $maxPage++;
+
+        return $maxPage;
 
     }
 

@@ -21,11 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/revenues', [HomeController::class, 'getRevenues'])->name('revenues');
-
 Route::middleware('auth:sanctum')->get('/followersGain', [HomeController::class, 'getFollowersGain'])->name('followersGain');
-
 Route::middleware('auth:sanctum')->get('/topProducts', [HomeController::class, 'getTopProducts'])->name('topProducts');
-
 Route::middleware('auth:sanctum')->get('/events', [HomeController::class, 'getEvents'])->name('events');
+Route::middleware('auth:sanctum')->get('/maxPage', [HomeController::class, 'getMaxPages'])->name('maxPage');
 
 Route::middleware('auth:sanctum')->put('/updateProvider', [HomeController::class, 'updateProvider'])->name('updateProvider');

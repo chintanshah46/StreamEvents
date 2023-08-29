@@ -8,6 +8,7 @@ $(document).ready(function() {
     loadFollowersGainData();
     loadTopProductsData();
 
+    getEventsMaxPage()
     loadEventsData();
 });
 
@@ -55,6 +56,22 @@ function loadTopProductsData(){
         success: function(data){
             $('#top_data').removeClass('spinner-border');
             $('#top_data').html(data.html);
+        }
+    });
+}
+
+function getEventsMaxPage(){
+    $.ajax({
+        method: "get",
+        "url": "api/maxPage",
+        xhrFields: {
+            withCredentials: true
+        },
+        headers: {"X-XSRF-TOKEN": $.cookie('XSRF-TOKEN')},
+        data: {'_token':$('#_token').val(), 'resp': 'json'},
+        success: function(data){
+            //console.log(data);
+            $('#_maxPage').val(data.data)
         }
     });
 }
@@ -109,11 +126,12 @@ function markAsReadEvent(ele){
 
 function bindScroll(){
     var currentPage = $('#_page').val();
+    var maxPage = $('#_maxPage').val();
 
     if (scrollLoad && $(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
         scrollLoad = false;
 
-        if ( currentPage > 1 ){
+        if ( currentPage > 1 && currentPage <= maxPage){
             $(window).unbind('scroll');
             loadEventsData();
         }

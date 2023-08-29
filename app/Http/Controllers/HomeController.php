@@ -161,6 +161,21 @@ class HomeController extends Controller
 
     }
 
+    public function getMaxPages(DataProvider $provider){
+        if ( ! Auth::check() ) {
+            return response()->json('Unprocessable entity indicates that the action could not be processed properly due to invalid data provided', 422);
+        }
+
+        $data = $provider->getEventsMaxPages();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+
+    }
+
+
     public function updateProvider(DataProvider $provider, Request $request){
         if ( ! Auth::check() ) {
             return response()->json('Unprocessable entity indicates that the action could not be processed properly due to invalid data provided', 422);
@@ -182,7 +197,6 @@ class HomeController extends Controller
             'status' => 'success',
             'data' => $provider->updateHasRead($id, $type)
         ]);
-
 
     }
 }

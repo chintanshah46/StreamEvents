@@ -3,6 +3,7 @@
 @section('content')
 <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
 <input type="hidden" id="_page" name="_page" value="1" />
+<input type="hidden" id="_maxPage" name="_maxPage" value="1" />
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
