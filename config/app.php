@@ -212,6 +212,4 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
-    'github_redirect_url' => env('GITHUB_REDIRECT_URL'), 
-
 ];

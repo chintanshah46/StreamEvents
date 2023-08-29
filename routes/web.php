@@ -23,6 +23,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
