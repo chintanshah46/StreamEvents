@@ -14,7 +14,7 @@ class DataProvider {
         $this->auth = $auth;
     }
 
-    public function getRevenues($data){
+    public function getRevenues(){
 
         $user_id = $this->auth::user()->id;
 
@@ -40,7 +40,7 @@ class DataProvider {
         return $finalData;
     }
 
-    public function getFollowersGain($data){
+    public function getFollowersGain(){
 
         $user_id = $this->auth::user()->id;
 
@@ -59,11 +59,11 @@ class DataProvider {
             return null;
     }
 
-    public function getTopProducts($data){
+    public function getTopProducts(){
 
         $user_id = $this->auth::user()->id;
 
-        $data = DB::table('merchandise_sales')
+        return DB::table('merchandise_sales')
                     ->join('merchandises','merchandises.id','=','merchandise_sales.merchandise_id')
                     ->join('event_users','event_users.id','=','merchandise_sales.event_user_id')
                     ->whereNull(['event_users.deleted_at','merchandises.deleted_at','merchandise_sales.deleted_at'])
@@ -75,7 +75,30 @@ class DataProvider {
                     ->orderByRaw('total_quantity_sold DESC')
                     ->limit(3)
                     ->get();
+    }
 
-            return $data;
+    public function getEvents($page){
+
+        $user_id = $this->auth::user()->id;
+
+        $limit = 10;
+        $offset = ($limit * ($page-1) );
+
+        return DB::table('summary_view')
+                            ->where('user_id','=',$user_id)
+                            ->orderByRaw('`read` ASC, created DESC')
+                            ->offset($offset)
+                            ->limit($limit)
+                            ->get();
+
+    }
+
+    public function updateHasRead($id, $table){
+
+        if ($table == 'sales') $table = 'merchandise_sales';
+
+        return DB::table($table)
+                ->where('id', $id)
+                ->update(['has_read' => 1]);
     }
 }

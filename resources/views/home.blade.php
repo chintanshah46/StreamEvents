@@ -2,6 +2,7 @@
 
 @section('content')
 <input type="hidden" id="_token" name="_token" value="{{ csrf_token() }}" />
+<input type="hidden" id="_page" name="_page" value="1" />
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -19,7 +20,6 @@
                     <div class="card-body">
 
                         <div class="row ">
-
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">{{ __('Last 30 Days Update') }}</div>
@@ -57,8 +57,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row ">
-                            
+                        <div class="row pt-5">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">{{ __('Recent Events') }}</div>
+                                    <div class="card-body">
+                                        <div id="event_data" name="event_data" class="spinner-border"></div>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>

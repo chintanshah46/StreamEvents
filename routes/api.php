@@ -26,4 +26,6 @@ Route::middleware('auth:sanctum')->get('/followersGain', [HomeController::class,
 
 Route::middleware('auth:sanctum')->get('/topProducts', [HomeController::class, 'getTopProducts'])->name('topProducts');
 
+Route::middleware('auth:sanctum')->get('/events', [HomeController::class, 'getEvents'])->name('events');
 
+Route::middleware('auth:sanctum')->put('/updateProvider', [HomeController::class, 'updateProvider'])->name('updateProvider');
