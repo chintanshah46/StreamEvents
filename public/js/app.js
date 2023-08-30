@@ -94,7 +94,7 @@ function loadEventsData(){
 }
 
 function registerEventsDataCallBack(){
-    $('#tbEvents').on('change', ':checkbox', function () {
+    $('#event_data').on('change', ':checkbox', function () {
 
         if ($(this).is(':checked')) {
             markAsReadEvent(this);
