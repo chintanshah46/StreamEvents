@@ -70,8 +70,8 @@ function getEventsMaxPage(){
         headers: {"X-XSRF-TOKEN": $.cookie('XSRF-TOKEN')},
         data: {'_token':$('#_token').val(), 'resp': 'json'},
         success: function(data){
-            //console.log(data);
-            $('#_maxPage').val(data.data)
+            $('#_maxPage').val(data.data);
+            bindScroll();
         }
     });
 }
@@ -125,8 +125,8 @@ function markAsReadEvent(ele){
 }
 
 function bindScroll(){
-    var currentPage = $('#_page').val();
-    var maxPage = $('#_maxPage').val();
+    var currentPage = Number($('#_page').val());
+    var maxPage = Number($('#_maxPage').val());
 
     if (scrollLoad && $(window).scrollTop() >= $(document).height() - $(window).height() - 100) {
         scrollLoad = false;

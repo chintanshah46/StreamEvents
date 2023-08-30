@@ -12,11 +12,8 @@
             @foreach ($data as $row)
             @php $class = $loop->index % 2 === 0 ? 'odd' : 'even'; @endphp
             <tr class="{{ $class }}" > 
-                {{-- <td data-label="Name" class="fw-bold">
-                    {{ ucwords($key) }}
-                </td>                                 --}}
                 <td data-label="read">
-                    <input type='checkbox' data-id="{{ $row->id }}" data-type="{{ $row->type }}" />
+                    <input type='checkbox' data-id="{{ $row->id }}" data-type="{{ $row->type }}" {{ $row->read == 1 ? 'checked disabled="true" ' : '' }}/>
                 </td>
                 <td data-label="event">
                     @switch($row->type)
